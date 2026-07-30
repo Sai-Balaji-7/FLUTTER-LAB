@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: EnableDisable(),
+    ),
+  );
+}
+
+class EnableDisable extends StatefulWidget {
+  State<EnableDisable> createState() => _EnableDisableState();
+}
+
+class _EnableDisableState extends State<EnableDisable> {
+  bool enable = true;
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
+      appBar: AppBar(
+        title: Text("Enable Disable"),
+        backgroundColor: Colors.indigo,
+      ),
+      body: Center(
+        child: Container(
+          width: 250,
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo,
+                ),
+                onPressed: enable ? () {} : null,
+                child: Text(
+                  "Click Me",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+
+              SizedBox(height: 25),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("OFF"),
+                  Switch(
+                    value: enable,
+                    activeColor: Colors.green,
+                    onChanged: (value) {
+                      setState(() {
+                        enable = value;
+                      });
+                    },
+                  ),
+                  Text("ON"),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
