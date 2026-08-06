@@ -1,0 +1,57 @@
+body: Container(
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: NetworkImage(
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      ),
+      fit: BoxFit.cover,
+    ),
+  ),
+
+  child: width < 600
+      ? Center(
+          child: Text(
+            "Mobile Screen",
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
+        )
+      : Row(
+          children: [
+            Container(
+              width: 200,
+              color: Colors.white70,
+              child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  ListTile(
+                    leading: Icon(Icons.home),
+                    title: Text("Home"),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text("Profile"),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("Settings"),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  "Desktop / Tablet Screen",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+),
