@@ -27,133 +27,166 @@ class _StudentDetailsState extends State<StudentDetails> {
 
   bool showCards = false;
 
+  Widget inputField(
+      String label, TextEditingController controller, IconData icon) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon),
+          filled: true,
+          fillColor: Colors.grey.shade100,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget studentInput(
+      String title,
+      TextEditingController name,
+      TextEditingController branch,
+      TextEditingController cgpa) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple,
+            ),
+          ),
+          SizedBox(height: 12),
+
+          inputField("Student Name", name, Icons.person),
+          inputField("Branch", branch, Icons.school),
+          inputField("CGPA", cgpa, Icons.star),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade100,
+      backgroundColor: Colors.purple.shade50,
+
       appBar: AppBar(
-        title: Text("Student Information"),
+        title: Text("Student Profile"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
       ),
+
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(18),
+
           child: Column(
             children: [
+              SizedBox(height: 10),
+
               Text(
                 "Enter Student Details",
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
-              SizedBox(height: 15),
+              SizedBox(height: 5),
 
-              // Student 1
-              TextField(
-                controller: name1,
-                decoration: InputDecoration(
-                  labelText: "Student 1 Name",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              TextField(
-                controller: branch1,
-                decoration: InputDecoration(
-                  labelText: "Student 1 Branch",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              TextField(
-                controller: cgpa1,
-                decoration: InputDecoration(
-                  labelText: "Student 1 CGPA",
-                  border: OutlineInputBorder(),
+              Text(
+                "Enter details for three students",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade700,
                 ),
               ),
 
               SizedBox(height: 20),
 
-              // Student 2
-              TextField(
-                controller: name2,
-                decoration: InputDecoration(
-                  labelText: "Student 2 Name",
-                  border: OutlineInputBorder(),
+              studentInput(
+                "Student 1",
+                name1,
+                branch1,
+                cgpa1,
+              ),
+
+              studentInput(
+                "Student 2",
+                name2,
+                branch2,
+                cgpa2,
+              ),
+
+              studentInput(
+                "Student 3",
+                name3,
+                branch3,
+                cgpa3,
+              ),
+
+              SizedBox(height: 5),
+
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      showCards = true;
+                    });
+                  },
+                  icon: Icon(Icons.visibility),
+                  label: Text(
+                    "DISPLAY STUDENT CARDS",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
                 ),
               ),
 
-              SizedBox(height: 10),
-
-              TextField(
-                controller: branch2,
-                decoration: InputDecoration(
-                  labelText: "Student 2 Branch",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              TextField(
-                controller: cgpa2,
-                decoration: InputDecoration(
-                  labelText: "Student 2 CGPA",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              // Student 3
-              TextField(
-                controller: name3,
-                decoration: InputDecoration(
-                  labelText: "Student 3 Name",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              TextField(
-                controller: branch3,
-                decoration: InputDecoration(
-                  labelText: "Student 3 Branch",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              TextField(
-                controller: cgpa3,
-                decoration: InputDecoration(
-                  labelText: "Student 3 CGPA",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showCards = true;
-                  });
-                },
-                child: Text("DISPLAY CARDS"),
-              ),
-
-              SizedBox(height: 20),
+              SizedBox(height: 25),
 
               if (showCards) ...[
+                Text(
+                  "Student Profiles",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(height: 10),
+
                 StudentCard(
                   name: name1.text,
                   branch: branch1.text,
@@ -183,7 +216,9 @@ class _StudentDetailsState extends State<StudentDetails> {
   }
 }
 
-// Reusable Custom Widget
+
+// CUSTOM REUSABLE WIDGET
+
 class StudentCard extends StatelessWidget {
   final String name;
   final String branch;
@@ -200,49 +235,61 @@ class StudentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(15),
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(18),
+
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
-            blurRadius: 5,
-            offset: Offset(2, 3),
+            color: Colors.grey.shade300,
+            blurRadius: 7,
+            offset: Offset(0, 3),
           ),
         ],
       ),
+
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 50,
-            color: Colors.deepPurple,
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: Colors.deepPurple.shade100,
+            child: Icon(
+              icon,
+              size: 32,
+              color: Colors.deepPurple,
+            ),
           ),
 
-          SizedBox(width: 20),
+          SizedBox(width: 18),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Name: $name",
+                name,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
+              SizedBox(height: 5),
+
               Text(
                 "Branch: $branch",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 16),
               ),
 
               Text(
                 "CGPA: $cgpa",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
