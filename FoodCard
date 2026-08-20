@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      backgroundColor: Colors.orange.shade100,
+      appBar: AppBar(
+        title: Text("Food Ordering App"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FoodCard(
+              name: "Pizza",
+              price: "₹250",
+              icon: Icons.local_pizza,
+            ),
+
+            FoodCard(
+              name: "Burger",
+              price: "₹150",
+              icon: Icons.lunch_dining,
+            ),
+
+            FoodCard(
+              name: "Biryani",
+              price: "₹200",
+              icon: Icons.restaurant,
+            ),
+          ],
+        ),
+      ),
+    ),
+  ));
+}
+
+// Custom Widget
+class FoodCard extends StatelessWidget {
+  final String name;
+  final String price;
+  final IconData icon;
+
+  FoodCard({
+    required this.name,
+    required this.price,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 350,
+      margin: EdgeInsets.all(8),
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 5,
+            offset: Offset(2, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 50,
+            color: Colors.deepOrange,
+          ),
+
+          SizedBox(width: 20),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: 5),
+
+              Text(
+                price,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+
+          Spacer(),
+
+          ElevatedButton(
+            onPressed: () {},
+            child: Text("ADD TO CART"),
+          ),
+        ],
+      ),
+    );
+  }
+}
