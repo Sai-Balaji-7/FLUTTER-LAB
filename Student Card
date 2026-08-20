@@ -3,40 +3,187 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Scaffold(
+    home: StudentDetails(),
+  ));
+}
+
+class StudentDetails extends StatefulWidget {
+  @override
+  State<StudentDetails> createState() => _StudentDetailsState();
+}
+
+class _StudentDetailsState extends State<StudentDetails> {
+  TextEditingController name1 = TextEditingController();
+  TextEditingController branch1 = TextEditingController();
+  TextEditingController cgpa1 = TextEditingController();
+
+  TextEditingController name2 = TextEditingController();
+  TextEditingController branch2 = TextEditingController();
+  TextEditingController cgpa2 = TextEditingController();
+
+  TextEditingController name3 = TextEditingController();
+  TextEditingController branch3 = TextEditingController();
+  TextEditingController cgpa3 = TextEditingController();
+
+  bool showCards = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       backgroundColor: Colors.purple.shade100,
       appBar: AppBar(
         title: Text("Student Information"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StudentCard(
-              name: "Sai Balaji",
-              branch: "CSE",
-              cgpa: "9.44",
-              icon: Icons.person,
-            ),
-            StudentCard(
-              name: "Rahul",
-              branch: "ECE",
-              cgpa: "8.75",
-              icon: Icons.person,
-            ),
-            StudentCard(
-              name: "Karthik",
-              branch: "IT",
-              cgpa: "9.10",
-              icon: Icons.person,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Text(
+                "Enter Student Details",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: 15),
+
+              // Student 1
+              TextField(
+                controller: name1,
+                decoration: InputDecoration(
+                  labelText: "Student 1 Name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: branch1,
+                decoration: InputDecoration(
+                  labelText: "Student 1 Branch",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: cgpa1,
+                decoration: InputDecoration(
+                  labelText: "Student 1 CGPA",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // Student 2
+              TextField(
+                controller: name2,
+                decoration: InputDecoration(
+                  labelText: "Student 2 Name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: branch2,
+                decoration: InputDecoration(
+                  labelText: "Student 2 Branch",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: cgpa2,
+                decoration: InputDecoration(
+                  labelText: "Student 2 CGPA",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // Student 3
+              TextField(
+                controller: name3,
+                decoration: InputDecoration(
+                  labelText: "Student 3 Name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: branch3,
+                decoration: InputDecoration(
+                  labelText: "Student 3 Branch",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 10),
+
+              TextField(
+                controller: cgpa3,
+                decoration: InputDecoration(
+                  labelText: "Student 3 CGPA",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    showCards = true;
+                  });
+                },
+                child: Text("DISPLAY CARDS"),
+              ),
+
+              SizedBox(height: 20),
+
+              if (showCards) ...[
+                StudentCard(
+                  name: name1.text,
+                  branch: branch1.text,
+                  cgpa: cgpa1.text,
+                  icon: Icons.person,
+                ),
+
+                StudentCard(
+                  name: name2.text,
+                  branch: branch2.text,
+                  cgpa: cgpa2.text,
+                  icon: Icons.person,
+                ),
+
+                StudentCard(
+                  name: name3.text,
+                  branch: branch3.text,
+                  cgpa: cgpa3.text,
+                  icon: Icons.person,
+                ),
+              ],
+            ],
+          ),
         ),
       ),
-    ),
-  ));
+    );
+  }
 }
 
+// Reusable Custom Widget
 class StudentCard extends StatelessWidget {
   final String name;
   final String branch;
@@ -74,7 +221,9 @@ class StudentCard extends StatelessWidget {
             size: 50,
             color: Colors.deepPurple,
           ),
+
           SizedBox(width: 20),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -85,10 +234,12 @@ class StudentCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               Text(
                 "Branch: $branch",
                 style: TextStyle(fontSize: 18),
               ),
+
               Text(
                 "CGPA: $cgpa",
                 style: TextStyle(fontSize: 18),
