@@ -54,6 +54,7 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+
       appBar: AppBar(
         title: Text("Product List"),
         centerTitle: true,
@@ -62,13 +63,19 @@ class _ProductListState extends State<ProductList> {
       ),
 
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
           : error.isNotEmpty
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error, size: 60, color: Colors.red),
+                      Icon(
+                        Icons.error,
+                        size: 60,
+                        color: Colors.red,
+                      ),
                       SizedBox(height: 10),
                       Text(error),
                       SizedBox(height: 15),
@@ -78,6 +85,7 @@ class _ProductListState extends State<ProductList> {
                             loading = true;
                             error = "";
                           });
+
                           fetchProducts();
                         },
                         child: Text("Retry"),
@@ -88,6 +96,7 @@ class _ProductListState extends State<ProductList> {
               : ListView.builder(
                   padding: EdgeInsets.all(10),
                   itemCount: products.length,
+
                   itemBuilder: (context, index) {
                     var product = products[index];
 
@@ -97,18 +106,24 @@ class _ProductListState extends State<ProductList> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
+
                       child: Padding(
                         padding: EdgeInsets.all(12),
+
                         child: Row(
                           children: [
+
                             Container(
                               width: 100,
                               height: 100,
                               padding: EdgeInsets.all(8),
+
                               child: Image.network(
                                 product["image"],
                                 fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) {
+
+                                errorBuilder:
+                                    (context, error, stackTrace) {
                                   return Icon(
                                     Icons.image_not_supported,
                                     size: 50,
@@ -123,11 +138,14 @@ class _ProductListState extends State<ProductList> {
                               child: Column(
                                 crossAxisAlignment:
                                     CrossAxisAlignment.start,
+
                                 children: [
+
                                   Text(
                                     product["title"],
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
+
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold,
@@ -139,7 +157,7 @@ class _ProductListState extends State<ProductList> {
                                   Text(
                                     "Category: ${product["category"]}",
                                     style: TextStyle(
-                                      color: Colors.grey.shade700,
+                                      color: Colors.grey,
                                     ),
                                   ),
 
@@ -147,6 +165,7 @@ class _ProductListState extends State<ProductList> {
 
                                   Text(
                                     "₹ ${product["price"]}",
+
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
