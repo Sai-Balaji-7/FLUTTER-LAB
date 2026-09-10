@@ -1,0 +1,293 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: StudentRegistration(),
+  ));
+}
+
+class StudentRegistration extends StatefulWidget {
+  @override
+  State<StudentRegistration> createState() => _StudentRegistrationState();
+}
+
+class _StudentRegistrationState extends State<StudentRegistration> {
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
+
+  String? department;
+  String? gender;
+  bool terms = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.purple.shade50,
+
+      appBar: AppBar(
+        title: Text("Student Registration"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+
+          child: Form(
+            key: formKey,
+
+            child: Column(
+              children: [
+                Icon(
+                  Icons.app_registration,
+                  size: 70,
+                  color: Colors.deepPurple,
+                ),
+
+                SizedBox(height: 10),
+
+                Text(
+                  "Student Registration Portal",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(height: 25),
+
+                // Student Name
+                TextFormField(
+                  controller: name,
+                  decoration: InputDecoration(
+                    labelText: "Student Name",
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter student name";
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                // Email
+                TextFormField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter email";
+                    }
+
+                    if (!RegExp(
+                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                        .hasMatch(value)) {
+                      return "Enter a valid email";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                // Phone Number
+                TextFormField(
+                  controller: phone,
+                  keyboardType: TextInputType.phone,
+                  maxLength: 10,
+                  decoration: InputDecoration(
+                    labelText: "Phone Number",
+                    prefixIcon: Icon(Icons.phone),
+                    counterText: "",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter phone number";
+                    }
+
+                    if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                      return "Phone number must contain exactly 10 digits";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                // Department
+                DropdownButtonFormField<String>(
+                  value: department,
+                  decoration: InputDecoration(
+                    labelText: "Department",
+                    prefixIcon: Icon(Icons.school),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: "CSE",
+                      child: Text("CSE"),
+                    ),
+                    DropdownMenuItem(
+                      value: "ECE",
+                      child: Text("ECE"),
+                    ),
+                    DropdownMenuItem(
+                      value: "EEE",
+                      child: Text("EEE"),
+                    ),
+                    DropdownMenuItem(
+                      value: "IT",
+                      child: Text("IT"),
+                    ),
+                    DropdownMenuItem(
+                      value: "MECH",
+                      child: Text("MECH"),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      department = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return "Please select department";
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                // Gender
+                DropdownButtonFormField<String>(
+                  value: gender,
+                  decoration: InputDecoration(
+                    labelText: "Gender",
+                    prefixIcon: Icon(Icons.person_outline),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: "Male",
+                      child: Text("Male"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Female",
+                      child: Text("Female"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Other",
+                      child: Text("Other"),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return "Please select gender";
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 10),
+
+                // Terms and Conditions
+                CheckboxListTile(
+                  value: terms,
+                  title: Text("I accept Terms & Conditions"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  contentPadding: EdgeInsets.zero,
+                  onChanged: (value) {
+                    setState(() {
+                      terms = value ?? false;
+                    });
+                  },
+                ),
+
+                if (!terms)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Please accept Terms & Conditions",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+
+                SizedBox(height: 20),
+
+                // Submit Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate() && terms) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Registration Submitted Successfully",
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } else {
+                        setState(() {});
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      "SUBMIT REGISTRATION",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
